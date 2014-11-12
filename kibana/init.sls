@@ -68,7 +68,7 @@ nginx_kibana_config:
     - template: jinja
     - context:
         elasticsearch_nodes: {{ elasticsearch_nodes }}
-        kibana_version: {{ kibana_version }]}
+        kibana_version: {{ kibana_version }}
 
 enable_nginx_kibana_config:
   file.symlink:
