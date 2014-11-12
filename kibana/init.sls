@@ -66,7 +66,7 @@ kibana_ssl_key:
 nginx_kibana_config:
   file.managed:
     - name: /etc/nginx/sites-available/kibana
-    - src: salt://kibana/files/nginx.conf
+    - source: salt://kibana/files/nginx.conf
     - template: jinja
     - context:
         elasticsearch_nodes: {{ elasticsearch_nodes }}
