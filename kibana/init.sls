@@ -32,7 +32,7 @@ kibana_src:
 
 unpack_kibana:
   cmd.run:
-    - name: tar -xvzf kibana-{{ kibana-version }}.tar.gz
+    - name: tar -xvzf kibana-{{ kibana_version }}.tar.gz
     - unless: ls /var/www/ | grep -i kibana | grep -v tar.gz | wc -l
     - cwd: /var/www
     - require:
