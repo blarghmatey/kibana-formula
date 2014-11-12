@@ -1,0 +1,14 @@
+{% set kibana = salt['grains.filter_by']({
+    'Debian': {
+        'pkgs': [
+        ]
+    },
+    'RedHat': {
+        'pkgs': [
+        ]
+    },
+    'Arch': {
+        'pkgs': [
+        ]
+    }
+}, merge=salt['pillar.get']('kibana:lookup')) %}
