@@ -27,6 +27,7 @@ kibana_src:
     - name: wget https://download.elasticsearch.org/kibana/kibana/kibana-{{ kibana_version }}.tar.gz
     - unless: ls /var/www/ | grep -i kibana | wc -l
     - cwd: /var/www
+    - user: http
     - require:
         - file: target_dir
 
@@ -35,6 +36,7 @@ unpack_kibana:
     - name: tar -xvzf kibana-{{ kibana_version }}.tar.gz
     - unless: ls /var/www/ | grep -i kibana | grep -v tar.gz | wc -l
     - cwd: /var/www
+    - user: http
     - require:
         - cmd: kibana_src
 
@@ -69,6 +71,7 @@ nginx_kibana_config:
     - context:
         elasticsearch_nodes: {{ elasticsearch_nodes }}
         kibana_version: {{ kibana_version }}
+        use_ssl: {{ use_ssl }}
 
 enable_nginx_kibana_config:
   file.symlink:
