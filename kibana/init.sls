@@ -4,7 +4,7 @@
 {% set elasticsearch_port = salt['pillar.get']('elasticsearch:port', 9200) %}
 {% set elasticsearch_nodes = [] %}
 {% for id, ip_addrs in salt['mine.get']('roles:elasticsearch', 'network.ip_addrs', expr_form='grain').items() %}
-  {% do elasticsearch_nodes.append({'id': id, 'host': '{0}:{1}'.format(ip_addrs[0], elasticsearch_port))} %}
+  {% do elasticsearch_nodes.append({'id': id, 'host': '{0}:{1}'.format(ip_addrs[0], elasticsearch_port)}) %}
 {% endfor %}
 {% set kibana_users = salt['pillar.get']('kibana:users', []) %}
 {% set use_ssl = salt['pillar.get']('kibana:use_ssl', True) %}
