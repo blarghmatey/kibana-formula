@@ -25,7 +25,7 @@ target_dir:
 kibana_src:
   cmd.run:
     - name: wget https://download.elasticsearch.org/kibana/kibana/kibana-{{ kibana_version }}.tar.gz
-    - unless: ls /var/www/ | grep -i kibana | wc -l
+    - unless: test -f /var/www/kibana-{{ kibana_version}}.tar.gz
     - cwd: /var/www
     - user: http
     - require:
@@ -34,7 +34,7 @@ kibana_src:
 unpack_kibana:
   cmd.run:
     - name: tar -xvzf kibana-{{ kibana_version }}.tar.gz
-    - unless: ls /var/www/ | grep -i kibana | grep -v tar.gz | wc -l
+    - unless: test -d /var/www/kibana-{{ kibana_version}}/
     - cwd: /var/www
     - user: http
     - require:
