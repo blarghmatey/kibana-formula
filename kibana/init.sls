@@ -75,11 +75,11 @@ enable_nginx_kibana_config:
     - name: /etc/nginx/sites-enabled/kibana
     - target: /etc/nginx/sites-available/kibana
     - require:
-        - file: nginx_config
+        - file: nginx_kibana_config
 
 nginx_kibana_service:
   service.running:
     - enable: True
     - name: nginx
     - watch:
-        - file: nginx_config
+        - file: nginx_kibana_config
