@@ -8,6 +8,11 @@
 {% endfor %}
 {% set kibana_users = salt['pillar.get']('kibana:users', []) %}
 {% set use_ssl = salt['pillar.get']('kibana:use_ssl', True) %}
+{% if use_ssl %}
+{% set upstream_protocol = 'https' %}
+{% else %}
+{% set upstream_protocol = 'http' %}
+{% endif %}
 
 include:
   - nginx
@@ -39,6 +44,12 @@ unpack_kibana:
     - user: http
     - require:
         - cmd: kibana_src
+
+kibana_config_elasticsearch_host:
+  file.replace:
+    - name: /var/www/kibana-{{ kibana_version }}/config.js
+    - pattern: 'elasticsearch: "http:\/\/".*?$'
+    - repl: 'elasticsearch: {server: "{{ upstream_protocol }}://"+window.location.hostname, withCredentials: true},'
 
 {% for user in kibana_users %}
 kibana_htpasswd_{{ user.name }}:
