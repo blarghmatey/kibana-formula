@@ -53,7 +53,7 @@ kibana_config_elasticsearch_host:
 
 {% for user in kibana_users %}
 kibana_htpasswd_{{ user.name }}:
-  htpasswd.user_exists:
+  webutil.user_exists:
     - name: {{ user.name }}
     - passwd: {{ user.password }}
     - htpasswd_file: /etc/nginx/kibana.htpasswd
