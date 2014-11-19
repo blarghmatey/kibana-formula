@@ -1,10 +1,12 @@
 {% set kibana = salt['grains.filter_by']({
     'Debian': {
         'pkgs': [
+            'apache2-utils'
         ]
     },
     'RedHat': {
         'pkgs': [
+            'httpd-tools'
         ]
     },
     'Arch': {

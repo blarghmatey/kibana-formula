@@ -17,6 +17,10 @@
 include:
   - nginx
 
+kibana_pkg_deps:
+  pkg.installed:
+    - pkgs: {{ kibana.pkgs }}
+
 target_dir:
   file.directory:
     - name: /var/www
@@ -54,10 +58,9 @@ kibana_config_elasticsearch_host:
 {% for user in kibana_users %}
 kibana_htpasswd_{{ user.name }}:
   webutil.user_exists:
-    - name: {{ user.name }}
-    - passwd: {{ user.password }}
+    - name: {{ user.name |string }}
+    - passwd: {{ user.password | string }}
     - htpasswd_file: /etc/nginx/kibana.htpasswd
-    - options: s
 {% endfor %}
 
 {% if use_ssl %}
